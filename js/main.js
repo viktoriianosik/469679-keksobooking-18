@@ -4,10 +4,12 @@ var TYPE = ['palace', 'flat', 'house', 'bungalo'];
 var TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+
 var map = document.querySelector('.map');
 var mapPins = document.querySelector('.map__pins');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 var fragment = document.createDocumentFragment();
+var adverts = [];
 
 var chooseRandom = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -45,22 +47,22 @@ var createRandomAdvert = function (i) {
     author: {
       avatar: 'img/avatars/user0' + i + '.png',
     },
+    location: {
+      x: chooseRandomInRange(50, 930),
+      y: chooseRandomInRange(130, 630),
+    },
     offer: {
       title: 'Заголовок',
-      address: '600, 350',
-      price: 300,
+      address: 'location.x, location.y',
+      price: chooseRandomInRange(200,1000),
       type: chooseRandom(TYPE),
-      rooms: 2,
-      guests: 4,
+      rooms: chooseRandomInRange(1,4),
+      guests: chooseRandomInRange(2,10),
       checkin: chooseRandom(TIME),
       checkout: chooseRandom(TIME),
       features: createRandomArray(FEATURES),
       description: 'строка с описанием',
       photos: createRandomArray(PHOTOS),
-    },
-    location: {
-      x: chooseRandomInRange(50, 930),
-      y: chooseRandomInRange(130, 630),
     }
   };
 };
@@ -82,17 +84,15 @@ var renderPin = function (advert) {
   return pinElement;
 };
 
-var renderFragment = function () {
-  var adverts = [];
-
+var renderAdvPin = function (advert) {
   map.classList.remove('map--fadded');
-  adverts = generateAdverts(8);
 
   for (var i = 0; i < adverts.length; i++) {
-    fragment.appendChild(renderPin(adverts[i]));
+    fragment.appendChild(renderPin(advert[i]));
   }
 
   mapPins.appendChild(fragment);
 };
 
-renderFragment();
+adverts = generateAdverts(8);
+renderAdvPin(adverts);
