@@ -128,24 +128,22 @@ var setAddress = function (centerX, centerY) {
 
 var chooseCapacity = function () {
   if (roomNumber.value == '1' && capacity.value !== '1') {
-    capacity.setCustomValidity('Количество гостей не может быть больше 1!');
+    return capacity.setCustomValidity('Количество гостей не может быть больше 1!');
   }
 
   if ((roomNumber.value == '2') && (capacity.value !== '1' && capacity.value !== '2')) {
-    capacity.setCustomValidity('Количество гостей не может быть больше 2!');
+    return capacity.setCustomValidity('Количество гостей не может быть больше 2!');
   }
 
   if (roomNumber.value == '3' && capacity.value == '0') {
-    capacity.setCustomValidity('Вариант только для гостей!');
+    return capacity.setCustomValidity('Только для гостей!');
   }
 
   if (roomNumber.value == '100' && capacity.value !== '0') {
-    capacity.setCustomValidity('Вариант не для гостей!');
+    return capacity.setCustomValidity('Не для гостей!');
   } else {
-    capacity.setCustomValidity('');
+    return capacity.setCustomValidity('');
   }
-
-  return true;
 }
 
 disabledForm();
