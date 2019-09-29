@@ -1,29 +1,29 @@
 'use strict';
 
-var TYPE = ['palace', 'flat', 'house', 'bungalo'];
+/* var TYPE = ['palace', 'flat', 'house', 'bungalo'];
 var TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var ROOMS = ['1', '2', '3', '100'];
-var GUESTS = ['1', '2', '3', 'не для гостей'];
+var GUESTS = ['1', '2', '3', 'не для гостей']; */
 var ENTER_KEYCODE = 13;
 var PIN_WIDTH = 62;
 var PIN_HEIGHT = 62;
 var PIN_HEIGHT_WITH_ARROW = PIN_HEIGHT + 22;
 
 var map = document.querySelector('.map');
-var mapPins = document.querySelector('.map__pins');
+/* var mapPins = document.querySelector('.map__pins');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+var fragment = document.createDocumentFragment(); */
 var pinMain = document.querySelector('.map__pin--main');
-var fragment = document.createDocumentFragment();
 var adFormHeaderInput = document.querySelector('.ad-form-header__input');
 var adFormElement = document.querySelectorAll('.ad-form__element');
 var adForm = document.querySelector('.ad-form');
 var address = document.querySelector('#address');
 var roomNumber = document.querySelector('#room_number');
 var capacity = document.querySelector('#capacity');
-var adFormSubmit = document.querySelector('.ad-form__submit');
 
+/*
 var chooseRandom = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -103,7 +103,7 @@ var renderFragment = function (adverts) {
   }
 
   mapPins.appendChild(fragment);
-};
+};*/
 
 var disabledForm = function () {
   adFormHeaderInput.setAttribute('disabled', 'disabled');
@@ -123,28 +123,28 @@ var getEnableForm = function () {
 
 var setAddress = function (centerX, centerY) {
   address.readOnly = true;
-  address.value = Math.floor(parseInt(pinMain.style.left) + centerX) + ', ' + Math.floor(parseInt(pinMain.style.top) + centerY);
+  address.value = Math.floor(parseInt(pinMain.style.left, 10) + centerX) + ', ' + Math.floor(parseInt(pinMain.style.top, 10) + centerY);
 };
 
 var chooseCapacity = function () {
-  if (roomNumber.value == '1' && capacity.value !== '1') {
+  if (roomNumber.value === '1' && capacity.value !== '1') {
     return capacity.setCustomValidity('Количество гостей не может быть больше 1!');
   }
 
-  if ((roomNumber.value == '2') && (capacity.value !== '1' && capacity.value !== '2')) {
+  if ((roomNumber.value === '2') && (capacity.value !== '1' && capacity.value !== '2')) {
     return capacity.setCustomValidity('Количество гостей не может быть больше 2!');
   }
 
-  if (roomNumber.value == '3' && capacity.value == '0') {
+  if (roomNumber.value === '3' && capacity.value === '0') {
     return capacity.setCustomValidity('Только для гостей!');
   }
 
-  if (roomNumber.value == '100' && capacity.value !== '0') {
+  if (roomNumber.value === '100' && capacity.value !== '0') {
     return capacity.setCustomValidity('Не для гостей!');
   } else {
     return capacity.setCustomValidity('');
   }
-}
+};
 
 disabledForm();
 setAddress(PIN_WIDTH / 2, PIN_HEIGHT / 2);
@@ -161,6 +161,9 @@ pinMain.addEventListener('keydown', function (evt) {
   }
 });
 
+capacity.addEventListener('change', function () {
+  chooseCapacity();
+});
 
 /*
 var adverts = generateAdverts(8);
