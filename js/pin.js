@@ -95,4 +95,4 @@
 
   var adverts = generateAdverts(8);
   renderFragment(adverts);
-});
+})();

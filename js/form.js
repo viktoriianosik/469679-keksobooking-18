@@ -74,5 +74,4 @@
   capacity.addEventListener('change', function () {
     chooseCapacity();
   });
-}) ();
-
+})();
