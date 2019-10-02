@@ -64,7 +64,7 @@
     };
   };
 
-   window.generateAdverts = function (n) {
+  window.generateAdverts = function (n) {
     var adverts = [];
     for (var i = 1; i <= n; i++) {
       adverts.push(createRandomAdvert(i));
