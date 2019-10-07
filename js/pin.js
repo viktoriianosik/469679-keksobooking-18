@@ -3,7 +3,13 @@
 (function () {
   var mapPins = document.querySelector('.map__pins');
   var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-  var fragment = document.createDocumentFragment();
+
+  var shuffle = function (arr) {
+    var cmp = function () {
+      return 0.5 - Math.random();
+    };
+    return arr.sort(cmp);
+  };
 
   var renderPin = function (advert) {
     var pinElement = pin.cloneNode(true);
@@ -15,13 +21,22 @@
   };
 
   var renderFragment = function (adverts) {
-    for (var i = 0; i < adverts.length; i++) {
+    var fragment = document.createDocumentFragment();
+    shuffle(adverts);
+
+    for (var i = 0; i < 8; i++) {
       fragment.appendChild(renderPin(adverts[i]));
     }
 
     mapPins.appendChild(fragment);
   };
 
-  var adverts = window.generateAdverts(8);
-  renderFragment(adverts);
+  var errorMessage = function () {
+    var main = document.querySelector('main');
+    var error = document.querySelector('#error').content.querySelector('.error');
+    var errorBlock = error.cloneNode(true);
+    main.appendChild(errorBlock);
+  };
+
+  window.backend.load(renderFragment, errorMessage);
 })();
