@@ -4,24 +4,31 @@
   var card = document.querySelector('#card').content.querySelector('.map__card');
 
   var renameOfferType = function (type) {
+    var newType;
     switch (type) {
       case 'flat':
-        return type = 'Квартира';
+        newType = 'Квартира';
+        break;
       case 'bungalo':
-        return type = 'Бунгало';
+        newType = 'Бунгало';
+        break;
       case 'house':
-        return type = 'Дом';
+        newType = 'Дом';
+        break;
       case 'palace':
-        return type = 'Дворец';
+        newType = 'Дворец';
+        break;
       default:
-        return type = 'Нет такого формата';
+        newType = 'Нет такого формата';
+        break;
     }
+    return newType;
   };
 
   var addPhoto = function (photosArray) {
     var fragment = document.createDocumentFragment();
     var photo = card.querySelector('.popup__photo');
-    for (var i = 1; i < photosArray.length; i ++) {
+    for (var i = 1; i < photosArray.length; i++) {
       var newPhoto = photo.cloneNode(true);
       newPhoto.src = photosArray[i];
       fragment.appendChild(newPhoto);
@@ -49,7 +56,7 @@
       features[i].style.display = 'none';
     }
 
-    for (var i = 0; i < featuresFromService.length; i++) {
+    for (i = 0; i < featuresFromService.length; i++) {
       newCard.querySelector('.popup__feature--' + featuresFromService[i]).style.display = 'inline-block';
     }
 
@@ -62,4 +69,5 @@
     fragment.appendChild(renderCard(window.newAdverts[0]));
     filterContainer.before(fragment);
   };
-}) ();
+
+})();
