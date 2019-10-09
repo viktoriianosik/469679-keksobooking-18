@@ -22,21 +22,22 @@
 
   var renderFragment = function (adverts) {
     var fragment = document.createDocumentFragment();
-    shuffle(adverts);
+    window.newAdverts = shuffle(adverts);
 
     for (var i = 0; i < 8; i++) {
-      fragment.appendChild(renderPin(adverts[i]));
+      fragment.appendChild(renderPin(window.newAdverts[i]));
     }
 
     mapPins.appendChild(fragment);
+    window.renderAdvert();
   };
 
-  var errorMessage = function () {
+  window.errorMessage = function () {
     var main = document.querySelector('main');
     var error = document.querySelector('#error').content.querySelector('.error');
     var errorBlock = error.cloneNode(true);
     main.appendChild(errorBlock);
   };
 
-  window.backend.load(renderFragment, errorMessage);
+  window.backend.load(renderFragment, window.errorMessage);
 })();
