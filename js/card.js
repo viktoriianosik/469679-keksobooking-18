@@ -3,29 +3,28 @@
 (function () {
   var card = document.querySelector('#card').content.querySelector('.map__card');
 
-  var renameOfferType = function (type) {
-    var newType;
+  var getOfferTypeCaption = function (type) {
     switch (type) {
       case 'flat':
-        newType = 'Квартира';
+        type = 'Квартира';
         break;
       case 'bungalo':
-        newType = 'Бунгало';
+        type = 'Бунгало';
         break;
       case 'house':
-        newType = 'Дом';
+        type = 'Дом';
         break;
       case 'palace':
-        newType = 'Дворец';
+        type = 'Дворец';
         break;
       default:
-        newType = 'Нет такого формата';
+        type = 'Нет такого формата';
         break;
     }
-    return newType;
+    return type;
   };
 
-  var addPhoto = function (photosArray) {
+  var renderPhotos = function (photosArray) {
     var fragment = document.createDocumentFragment();
     var photo = card.querySelector('.popup__photo');
     for (var i = 1; i < photosArray.length; i++) {
@@ -44,13 +43,13 @@
     newCard.querySelector('.popup__title').textContent = advert.offer.title;
     newCard.querySelector('.popup__text--address').textContent = advert.offer.address;
     newCard.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
-    newCard.querySelector('.popup__type').textContent = renameOfferType(advert.offer.type);
+    newCard.querySelector('.popup__type').textContent = getOfferTypeCaption(advert.offer.type);
     newCard.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
     newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     newCard.querySelector('.popup__description').textContent = advert.offer.description;
     newCard.querySelector('.popup__avatar').src = advert.author.avatar;
     newCard.querySelector('.popup__photo').src = advert.offer.photos[0];
-    newCard.querySelector('.popup__photos').appendChild(addPhoto(advert.offer.photos));
+    newCard.querySelector('.popup__photos').appendChild(renderPhotos(advert.offer.photos));
 
     for (var i = 0; i < features.length; i++) {
       features[i].style.display = 'none';
