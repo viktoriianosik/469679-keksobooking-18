@@ -22,6 +22,18 @@
     }
   };
 
+  var successHandler = function (dataFromService) {
+    window.data = dataFromService;
+    window.pin.renderPins(window.data);
+  };
+
+  window.errorMessage = function () {
+    var main = document.querySelector('main');
+    var error = document.querySelector('#error').content.querySelector('.error');
+    var errorBlock = error.cloneNode(true);
+    main.appendChild(errorBlock);
+  };
+
   var getEnableForm = function () {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
@@ -29,6 +41,7 @@
     for (var i = 0; i < adFormElement.length; i++) {
       adFormElement[i].removeAttribute('disabled', 'disabled');
     }
+    window.backend.load(successHandler, window.errorMessage);
   };
 
   var setAddress = function (centerX, centerY) {

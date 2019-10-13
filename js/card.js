@@ -65,7 +65,7 @@
   window.renderAdvert = function () {
     var filterContainer = document.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(renderCard(window.newAdverts[0]));
+    fragment.appendChild(renderCard(window.data[0]));
     filterContainer.before(fragment);
   };
 
