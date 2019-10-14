@@ -4,13 +4,6 @@
   var mapPins = document.querySelector('.map__pins');
   var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var shuffle = function (arr) {
-    var cmp = function () {
-      return 0.5 - Math.random();
-    };
-    return arr.sort(cmp);
-  };
-
   var renderPin = function (advert) {
     var pinElement = pin.cloneNode(true);
     pinElement.style.left = advert.location.x + 'px';
@@ -20,24 +13,16 @@
     return pinElement;
   };
 
-  var renderFragment = function (adverts) {
-    var fragment = document.createDocumentFragment();
-    window.newAdverts = shuffle(adverts);
+  window.pin.renderPins = function (data) {
+    var takeNumber = data.length > 5 ? 5 : data.length;
+    window.fragment = document.createElement('div');
 
-    for (var i = 0; i < 8; i++) {
-      fragment.appendChild(renderPin(window.newAdverts[i]));
+    for (var i = 0; i < takeNumber; i++) {
+      window.fragment.appendChild(renderPin(data[i]));
     }
 
-    mapPins.appendChild(fragment);
+    mapPins.appendChild(window.fragment);
     window.renderAdvert();
   };
 
-  window.errorMessage = function () {
-    var main = document.querySelector('main');
-    var error = document.querySelector('#error').content.querySelector('.error');
-    var errorBlock = error.cloneNode(true);
-    main.appendChild(errorBlock);
-  };
-
-  window.backend.load(renderFragment, window.errorMessage);
 })();
